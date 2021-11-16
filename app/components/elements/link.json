@@ -12,13 +12,17 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": ["page", "test", "exercise", "external", "internal"],
+      "enum": ["page", "test", "external", "internal"],
       "required": true,
       "private": false
     },
     "page": {
-      "model": "page",
-      "autoPopulate": true
+      "autoPopulate": true,
+      "model": "page"
+    },
+    "test": {
+      "autoPopulate": true,
+      "model": "test"
     },
     "external": {
       "type": "string"

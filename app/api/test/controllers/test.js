@@ -180,6 +180,8 @@ module.exports = {
       test_result_settings,
       outcomes: all_outcomes,
       trigger_outcomes: all_trigger_outcomes,
+      link_list_title,
+      link_list,
     } = test.outcomes ?? {};
 
     const { show_total_points, show_maximum_points, show_stars } =
@@ -222,6 +224,8 @@ module.exports = {
       all_outcomes: show_all_possible_outcomes
         ? sanitizeTestOutcomes(all_outcomes, show_stars)
         : null,
+      link_list_title,
+      link_list,
     };
 
     const completedTestsService = strapi.services["completed-tests"];
@@ -236,11 +240,9 @@ module.exports = {
 
       // 2. Delete old (duplicate) tests from the DB before storing the new one
       if (oldTests?.length) {
-        Promise.all(
-          oldTests.forEach(
-            async ({ id }) => await completedTestsService.delete({ id })
-          )
-        );
+        for (const oldTest of oldTests) {
+          await completedTestsService.delete({ id: oldTest.id });
+        }
       }
 
       // 3. Save completed test to the DB

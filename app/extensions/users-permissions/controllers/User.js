@@ -95,4 +95,45 @@ module.exports = {
 
     ctx.body = appointments ?? [];
   },
+
+  async getTests(ctx) {
+    const ctxUser = ctx.state.user;
+    const userService = strapi.plugins["users-permissions"].services.user;
+
+    const user = await userService.fetch({ id: ctxUser.id }, [
+      "completed_tests.test",
+    ]);
+
+    if (!user) {
+      return ctx.badRequest(null, [
+        { messages: [{ id: "No authorization header was found" }] },
+      ]);
+    }
+
+    ctx.body = user.completed_tests;
+  },
+
+  async findTestOutcome(ctx) {
+    const { slug } = ctx.params;
+    const ctxUser = ctx.state.user;
+    const userService = strapi.plugins["users-permissions"].services.user;
+
+    const user = await userService.fetch({ id: ctxUser.id }, [
+      "completed_tests.test",
+    ]);
+
+    if (!user) {
+      return ctx.badRequest(null, [
+        { messages: [{ id: "No authorization header was found" }] },
+      ]);
+    }
+
+    const completed_test = user.completed_tests.find(
+      ({ test }) => test?.slug === slug
+    );
+
+    if (completed_test?.outcomes) {
+      ctx.body = completed_test?.outcomes;
+    }
+  },
 };

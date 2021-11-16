@@ -29,6 +29,36 @@
           "actionType": "getAppointments"
         }
       }
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/tests",
+      "handler": "User.getTests",
+      "config": {
+        "policies": [],
+        "prefix": "",
+        "description": "Retrieves user's completed tests",
+        "tag": {
+          "plugin": "users-permissions",
+          "name": "User",
+          "actionType": "getTests"
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/users/me/tests/:slug/outcome",
+      "handler": "User.findTestOutcome",
+      "config": {
+        "policies": [],
+        "prefix": "",
+        "description": "Retrieves user's test outcome",
+        "tag": {
+          "plugin": "users-permissions",
+          "name": "User",
+          "actionType": "findTestOutcome"
+        }
+      }
     }
   ]
 }

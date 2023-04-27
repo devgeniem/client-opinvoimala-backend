@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+## [0.5.0] - 2022-04-27
+
 - Upgraded some packages
 - Media Library stores images/files to locale mount instead of Google Bucket
 
